@@ -1,0 +1,65 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.main-name {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 13pt;
+    text-align: justify;
+}
+
+.sub-name {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9pt;
+    font-weight: normal;
+    text-align: justify;
+}
+
+th, td {
+    border: 1px solid;
+    table-layout: fixed;
+}
+
+.border-0 {
+    border: 0px;
+}
+
+.title {
+    font-size: 15pt;
+    text-align: center;
+    font-weight: bold;
+}
+
+.sub-title {
+    font-size: 13pt;
+    text-align: center;
+    font-weight: bold;
+}
+
+table.form {
+    width: 100%;
+}
+
+input {
+    /*width: 100%;*/
+    padding: 9px 0px
+}
+
+.bg-list-block{
+    background-color: lightseagreen;
+}

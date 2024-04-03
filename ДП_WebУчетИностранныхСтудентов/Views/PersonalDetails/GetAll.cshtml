@@ -1,0 +1,113 @@
+﻿@model GetPersonalDetailsListViewModel
+
+@{
+    ViewBag.Title = "Список личных данных";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="border border-3 border-success rounded m-1 bg-list-block">
+        <div class="border border-3 border-success rounded m-2 bg-white">
+            <form class="m-2" method="post">
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div class="fs-5 align-content-center align-items-center">Поиск</div>
+                <div class="mx-auto">
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <input class="form-control m-1" asp-for="SearchPersonalDetails.SearchString" placeholder="Универсальный поиск" />
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <select class="form-select m-1" asp-for="SearchPersonalDetails.GenderId" asp-items="ViewBag.Genders">
+                            <option value="@Guid.Empty">Выберите пол</option>
+                            <option value="@null">Не определено</option>
+                        </select>
+                        <select class="form-select m-1" asp-for="SearchPersonalDetails.CountryId" asp-items="ViewBag.Countries">
+                            <option value="@Guid.Empty">Выберите страну</option>
+                            <option value="@null">Не определено</option>
+                        </select>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <select class="form-select m-1" asp-for="SearchPersonalDetails.NationalityId" asp-items="ViewBag.Nationalities">
+                            <option value="@Guid.Empty">Выберите национальность</option>
+                            <option value="@null">Не определено</option>
+                        </select>
+                        <select class="form-select m-1" asp-for="SearchPersonalDetails.MaritalStatusId" asp-items="ViewBag.MaritalStatuses">
+                            <option value="@Guid.Empty">Выберите семейное положение</option>
+                            <option value="@null">Не определено</option>
+                        </select>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <button asp-controller="PersonalDetails" asp-action="GetAll" type="submit" class="btn btn-success m-1">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h1>Список личных данных:</h1>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <a asp-controller="PersonalDetails" asp-action="AddPersonalDetails"><input type="submit" class="btn btn-success" value="Добавить" /></a>
+    </div>
+    <div class="row mx-auto">
+        @foreach (var item in Model.PersonalDetailsViewModels)
+        {
+            <div class="col-12 col-sm-6 col-md-4  d-flex justify-content-center justify-content-md-start align-items-center">
+                <div class="border border-3 border-success rounded m-1 bg-list-block">
+                    <div class="border border-3 border-success rounded m-2 bg-white">
+                        <div class="m-1">
+                            <fieldset disabled>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">ФИО</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.Surname @item.Name @item.Patronymic">
+                                </div>
+                                <hr>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">Email</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.Email">
+                                </div>
+                                <hr>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">Семейное положение</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.MaritalStatus">
+                                </div>
+                                <hr>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">Пол</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.Gender">
+                                </div>
+                                <hr>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">Национальность</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.Nationality">
+                                </div>
+                                <hr>
+                                <div class="input-group">
+                                    <span class="input-group-text text-muted">Страна</span>
+                                    <input type="text" class="input-group-text form-control" value="@item.Country">
+                                </div>
+                            </fieldset>
+                            <div class="row my-1 d-flex justify-content-center align-items-center">
+                                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center">
+                                    <a asp-controller="Questionnaire" asp-action="Add" asp-route-Id="@item.Id"><input type="button" class="btn btn-outline-success" value="Анкета"></a>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+                                    <a asp-controller="StudentCard" asp-action="AddStudentCard" asp-route-personalDetailsId="@item.Id"><input type="button" class="btn btn-outline-success" value="Карточка"></a>
+                                </div>
+                            </div>
+                            <div class="row my-1 d-flex justify-content-center align-items-center">
+                                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center">
+                                    <a asp-controller="PersonalDetails" asp-action="EditPersonalDetails" asp-route-Id="@item.Id"><input type="button" class="btn btn-success" value="Редактировать"></a>
+                                </div>
+                                <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+                                    <form asp-controller="PersonalDetails" asp-action="DeletePersonalDetails" method="post" asp-route-id="@item.Id">
+                                        <input type="submit" class="btn btn-success" value="Удалить" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

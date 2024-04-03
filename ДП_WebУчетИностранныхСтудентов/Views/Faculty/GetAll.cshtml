@@ -1,0 +1,56 @@
+﻿@model GetFacultyListViewModel
+
+@{
+    ViewBag.Title = "Список факультетов";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="border border-3 border-success rounded m-1 bg-list-block">
+        <div class="border border-3 border-success rounded m-2 bg-white">
+            <form class="m-2" method="post">
+                <div class="fs-5 align-content-center align-items-center">Поиск</div>
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div class="mx-auto">
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <input class="form-control m-1" asp-for="SearchFaculty.SearchString" placeholder="Поиск" />
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <button asp-controller="Faculty" asp-action="GetAll" type="submit" class="btn btn-success m-1">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h1>Список факультетов:</h1>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <a asp-controller="Faculty" asp-action="AddFaculty"><input type="submit" class="btn btn-success" value="Добавить" /></a>
+    </div>
+    @foreach (var faculty in Model.FacultyViewModels)
+    {
+        <div class="border border-3 border-success rounded-pill m-1 bg-list-block">
+            <div class="border border-3 border-success rounded-pill m-2 bg-white">
+                <div class="row mx-auto">
+                    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                        Название: @faculty.Name
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                        Специальностей: @faculty.SpecialtiesCount
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-end align-items-center">
+                        <div class="m-1">
+                            <a asp-controller="Faculty" asp-action="EditFaculty" asp-route-Id="@faculty.Id"><input type="button" class="btn btn-success" value="Редактировать"></a>
+                        </div>
+                        <div class="m-1">
+                            <form asp-controller="Faculty" asp-action="DeleteFaculty" method="post" asp-route-id="@faculty.Id">
+                                <input class="btn btn-success" type="submit" value="Удалить" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<div class="container">
+    <div class="text-center">
+        <h1>Статистика обучаемости иностранных студентов</h1>
+    </div>
+    <div class="row mx-auto">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <h3>ОСНОВНЫЕ ДАННЫЕ</h3>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="PersonalDetails" asp-action="Index">Персональные данные</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Questionnaire" asp-action="Index">Анкеты</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="StudentCard" asp-action="Index">Карточки студентов</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <h3>ДОПОЛНИТЕЛЬНЫЕ ДАННЫЕ</h3>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Country" asp-action="Index">Страны</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Nationality" asp-action="Index">Национальности</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Gender" asp-action="Index">Пол</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="MaritalStatus" asp-action="Index">Семейное положение</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="EducationLanguage" asp-action="Index">Язык обучения</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="EducationType" asp-action="Index">Тип обучения</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Faculty" asp-action="Index">Факультет</a>
+        </div>
+        <div class="col-12 col-md-4 d-grid gap-1">
+            <a class="m-1 btn btn-success from-control" asp-controller="Specialty" asp-action="Index">Специальность</a>
+        </div>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="col-12 d-flex justify-content-center align-items-center">
+                <h3>АДМИН</h3>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-12 col-md-4 d-grid gap-1">
+                    <a class="m-1 btn btn-success from-control" asp-controller="Account" asp-action="GetAll">Аккаунты</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

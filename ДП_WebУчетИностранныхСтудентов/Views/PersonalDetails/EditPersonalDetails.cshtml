@@ -1,0 +1,97 @@
+﻿@model EditPersonalDetailsViewModel
+
+@{
+    ViewBag.Title = "Редактировать персональные данные";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h2>Редактирование персональных данных</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-6 ">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" asp-action="EditPersonalDetails" asp-controller="PersonalDetails" method="post">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Фамилия</label>
+                            <span class="form-text text-danger" asp-validation-for="Surname"></span>
+                            <input type="text" class="form-control" placeholder="Введите фамилию" asp-for="Surname">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Имя</label>
+                            <span class="form-text text-danger" asp-validation-for="Name"></span>
+                            <input type="text" class="form-control" placeholder="Введите имя" asp-for="Name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Отчество</label>
+                            <span class="form-text text-danger" asp-validation-for="Patronymic"></span>
+                            <input type="text" class="form-control" placeholder="Введите отчество" asp-for="Patronymic">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Дата рождения</label>
+                            <span class="form-text text-danger" asp-validation-for="Birthday"></span>
+                            <input type="date" class="form-control" asp-for="Birthday">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Место рождения</label>
+                            <span class="form-text text-danger" asp-validation-for="PlaceofBirth"></span>
+                            <input type="text" class="form-control" placeholder="Введите место рождения" asp-for="PlaceofBirth">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Фактический адрес проживания</label>
+                            <span class="form-text text-danger" asp-validation-for="PermamentHomeAddress"></span>
+                            <input type="text" class="form-control" placeholder="Введите фактический адрес проживания" asp-for="PermamentHomeAddress">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Номер телефона</label>
+                            <span class="form-text text-danger" asp-validation-for="PhoneNumber"></span>
+                            <input type="text" class="form-control" placeholder="Введите номер телефона" asp-for="PhoneNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Номер телефона в беларуси</label>
+                            <span class="form-text text-danger" asp-validation-for="PhoneNumberInBelarus"></span>
+                            <input type="text" class="form-control" placeholder="Введите номер телефона в беларуси" asp-for="PhoneNumberInBelarus">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Почта</label>
+                            <span class="form-text text-danger" asp-validation-for="Email"></span>
+                            <input type="text" class="form-control" placeholder="Введите почту" asp-for="Email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Страна</label>
+                            <select class="form-select" asp-for="CountryId" asp-items="ViewBag.Countries">
+                                <option value="">Выберите страну</option>
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="CountryId"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Национальность</label>
+                            <select class="form-select" asp-for="NationalityId" asp-items="ViewBag.Nationalities">
+                                <option value="">Выберите национальность</option>
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="NationalityId"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Семейное положение</label>
+                            <select class="form-select" asp-for="MaritalStatusId" asp-items="ViewBag.MaritalStatuses">
+                                <option value="">Выберите семейное положение</option>
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="MaritalStatusId"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Пол</label>
+                            <select class="form-select" asp-for="GenderId" asp-items="ViewBag.Genders">
+                                <option value="">Выберите пол</option>
+                            </select>
+                            <span class="form-text text-danger" asp-validation-for="GenderId"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success">Обновить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

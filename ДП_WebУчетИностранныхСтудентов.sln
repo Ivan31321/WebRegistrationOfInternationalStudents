@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringTheProgressOfForeignStudents", "ДП_WebУчетИностранныхСтудентов\MonitoringTheProgressOfForeignStudents.csproj", "{954F0782-27C9-48BF-BB46-933D66725514}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringTheProgressOfForeignStuden", "ДП_WebУчетИностранныхСтудентов\MonitoringTheProgressOfForeignStuden.csproj", "{954F0782-27C9-48BF-BB46-933D66725514}"
+	ProjectSection(ProjectDependencies) = postProject
+		{18D60F7A-8EA6-4311-A636-290EFF7B2460} = {18D60F7A-8EA6-4311-A636-290EFF7B2460}
+		{54285CE6-36A4-409E-9779-2A6C22803447} = {54285CE6-36A4-409E-9779-2A6C22803447}
+		{975B2483-925F-4D1E-8F0E-166B91C94F22} = {975B2483-925F-4D1E-8F0E-166B91C94F22}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringTheProgressOfForeignStudents.Application", "MonitoringTheProgressOfForeignStudents.Application\MonitoringTheProgressOfForeignStudents.Application.csproj", "{18D60F7A-8EA6-4311-A636-290EFF7B2460}"
 EndProject

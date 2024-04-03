@@ -1,0 +1,331 @@
+﻿@model EditQuestionnaireViewModel
+
+@{
+    ViewBag.Title = "Анкета";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h2>Добавление анкеты</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" method="post" asp-controller="Questionnaire" asp-action="AddQuestionnaire">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <input type="hidden" asp-for="PersonalDetailsId" />
+                        <div class="row mx-auto">
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <h3>АНКЕТА</h3>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Личные данные
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">1</span>
+                                    <span class="input-group-text text-muted">Фамилия, имя, отвество</span>
+                                    <input type="text" class="form-control" placeholder="Фамилия" asp-for="Surname">
+                                    <input type="text" class="form-control" placeholder="Имя" asp-for="Name">
+                                    <input type="text" class="form-control" placeholder="Отчество" asp-for="Patronymic">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="Surname"></span>
+                                        <span class="form-text text-danger" asp-validation-for="Name"></span>
+                                        <span class="form-text text-danger" asp-validation-for="Patronymic"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">2</span>
+                                    <span class="input-group-text text-muted">Дата рождения</span>
+                                    <input type="date" class="form-control" placeholder="Дата рождения" asp-for="Birthday">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="Birthday"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">3</span>
+                                    <span class="input-group-text text-muted">Пол</span>
+                                    <select class="form-select" asp-for="GenderId" asp-items="ViewBag.Genders">
+                                        <option value="">Выберите пол</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="GenderId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">4</span>
+                                    <span class="input-group-text text-muted">Страна</span>
+                                    <select class="form-select" asp-for="CountryId" asp-items="ViewBag.Countries">
+                                        <option value="">Выберите страну</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="CountryId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">5</span>
+                                    <span class="input-group-text text-muted">Место рождения</span>
+                                    <input type="text" class="form-control" placeholder="cтрана, город / country, city" asp-for="PlaceofBirth">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="PlaceofBirth"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">6</span>
+                                    <span class="input-group-text text-muted">Национальность</span>
+                                    <select class="form-select" asp-for="NationalityId" asp-items="ViewBag.Nationalities">
+                                        <option value="">Выберите национальность</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="NationalityId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">7</span>
+                                    <span class="input-group-text text-muted">Семейное положение</span>
+                                    <select class="form-select" asp-for="MaritalStatusId" asp-items="ViewBag.MaritalStatuses">
+                                        <option value="">Выберите семейное положение</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="MaritalStatusId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">8</span>
+                                    <span class="input-group-text text-muted">Фактический адрес проживания</span>
+                                    <input type="text" class="form-control" placeholder="область, район, город (поселок), улица, дома / region. district, city (town), street, house" asp-for="PermamentHomeAddress">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="PermamentHomeAddress"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Контактные данные
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">9</span>
+                                    <span class="input-group-text text-muted">Номер телефона</span>
+                                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="PhoneNumber"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">10</span>
+                                    <span class="input-group-text text-muted">Номер телефона в беларуси</span>
+                                    <input type="text" class="form-control" asp-for="PhoneNumberInBelarus">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="PhoneNumberInBelarus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">11</span>
+                                    <span class="input-group-text text-muted">Электронная почта</span>
+                                    <input type="text" class="form-control" asp-for="Email">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="Email"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Информация о родителях
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">12</span>
+                                    <span class="input-group-text text-muted">Имя отца</span>
+                                    <input type="text" class="form-control" asp-for="FathersName">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="FathersName"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">13</span>
+                                    <span class="input-group-text text-muted">Имя матери</span>
+                                    <input type="text" class="form-control" asp-for="MothersName">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="MothersName"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">14</span>
+                                    <span class="input-group-text text-muted">Профессия отца</span>
+                                    <input type="text" class="form-control" asp-for="FathersProfession">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="FathersProfession"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">15</span>
+                                    <span class="input-group-text text-muted">Профессия матери</span>
+                                    <input type="text" class="form-control" asp-for="MothersProfession">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="MothersProfession"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">16</span>
+                                    <span class="input-group-text text-muted">Номер отца</span>
+                                    <input type="text" class="form-control" asp-for="FathersPhone">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="FathersPhone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">17</span>
+                                    <span class="input-group-text text-muted">Номер матери</span>
+                                    <input type="text" class="form-control" asp-for="MothersPhone">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="MothersPhone"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Образование
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">18</span>
+                                    <span class="input-group-text text-muted">Название школы или колледжа</span>
+                                    <input type="text" class="form-control" asp-for="NameOfSchool">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="NameOfSchool"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">19</span>
+                                    <span class="input-group-text text-muted">Адрес</span>
+                                    <input type="text" class="form-control" asp-for="AddressOfSchool">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="AddressOfSchool"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">20</span>
+                                    <span class="input-group-text text-muted">Дата поступления - Дата окончания</span>
+                                    <input type="date" class="form-control" asp-for="DateOfEntrance">
+                                    <span class="input-group-text text-muted">&ndash;</span>
+                                    <input type="date" class="form-control" asp-for="DateOfCompletion">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="DateOfEntrance"></span>
+                                        <span class="form-text text-danger" asp-validation-for="DateOfCompletion"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Обучение в БНТУ
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">21</span>
+                                    <span class="input-group-text text-muted">Выбранная специальность для учёбы</span>
+                                    <select class="form-select" asp-for="SpecialtyId" asp-items="ViewBag.Specialties">
+                                        <option value="">Выберите специальность</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="SpecialtyId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Дополнительная информация
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">22</span>
+                                    <span class="input-group-text text-muted">Каким языком владеете</span>
+                                    <input type="text" class="form-control" asp-for="KnowledgeOfLanguages">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="KnowledgeOfLanguages"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">23</span>
+                                    <span class="input-group-text text-muted">
+                                        Имя и адрес родственника,<br>который должен быть информирован<br>в случае крайней необходимости
+                                    </span>
+                                    <input type="text" class="form-control" asp-for="RelativeToBeInformedInEmergency">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="RelativeToBeInformedInEmergency"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">24</span>
+                                    <span class="input-group-text text-muted">Откуда Вы узнали про БНТУ</span>
+                                    <input type="text" class="form-control" asp-for="HowDidYouFindOutAboutBNTU">
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="HowDidYouFindOutAboutBNTU"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">25</span>
+                                    <span class="input-group-text text-muted">Тип обучения</span>
+                                    <select class="form-select" asp-for="EducationTypeId" asp-items="ViewBag.EduType">
+                                        <option value="">Выберите тип обучения</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="EducationTypeId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text text-muted">26</span>
+                                    <span class="input-group-text text-muted">Язык обучения</span>
+                                    <select class="form-select" asp-for="EducationLanguageId" asp-items="ViewBag.EduLang">
+                                        <option value="">Выберите язык обучения</option>
+                                    </select>
+                                    <div>
+                                        <span class="form-text text-danger" asp-validation-for="EducationLanguageId"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

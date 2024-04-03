@@ -1,0 +1,56 @@
+﻿@model GetEducationTypeListViewModel
+
+@{
+    ViewBag.Title = "Список видов обучения";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="border border-3 border-success rounded m-1 bg-list-block">
+        <div class="border border-3 border-success rounded m-2 bg-white">
+            <form class="m-2" method="post">
+                <div class="fs-5 align-content-center align-items-center">Поиск</div>
+                <div class="validation" asp-validation-summary="ModelOnly"></div>
+                <div class="mx-auto">
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <input class="form-control m-1" asp-for="SearchEducationType.SearchString" placeholder="Поиск" />
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <button asp-controller="EducationType" asp-action="GetAll" type="submit" class="btn btn-success m-1">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h1>Список видов обучения:</h1>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <a asp-controller="EducationType" asp-action="AddEducationType"><input type="submit" class="btn btn-success" value="Добавить" /></a>
+    </div>
+    @foreach (var type in Model.EducationTypeViewModels)
+    {
+        <div class="border border-3 border-success rounded-pill m-1 bg-list-block">
+            <div class="border border-3 border-success rounded-pill m-2 bg-white">
+                <div class="row mx-auto">
+                    <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                        Название: @type.Type
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                        Студентов: @type.QuestionnairesCount
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-end align-items-center">
+                        <div class="m-1">
+                            <a asp-controller="EducationType" asp-action="EditEducationType" asp-route-Id="@type.Id"><input type="button" class="btn btn-success" value="Редактировать"></a>
+                        </div>
+                        <div class="m-1">
+                            <form asp-controller="EducationType" asp-action="DeleteEducationType" method="post" asp-route-id="@type.Id">
+                                <input class="btn btn-success" type="submit" value="Удалить" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

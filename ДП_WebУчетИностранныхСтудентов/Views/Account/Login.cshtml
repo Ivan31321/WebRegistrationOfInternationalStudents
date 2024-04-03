@@ -1,0 +1,40 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "Авторизация";
+    Layout = "_Layout";
+}
+
+<div>
+    <div class="d-flex justify-content-center">
+        <h2>Войти в аккаунт</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-6 ">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" asp-action="Login" asp-controller="Account" method="post">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <label class="form-label">Почта</label>
+                        <span class="form-text text-danger d-block" asp-validation-for="Email"></span>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">&rarr;</span>
+                            <input type="text" class="form-control" placeholder="Введите почту" asp-for="Email" aria-describedby="basic-addon1">
+                        </div>
+                        <label class="form-label">Пароль</label>
+                        <span class="form-text text-danger d-block" asp-validation-for="Password"></span>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">&rarr;</span>
+                            <input type="password" class="form-control" placeholder="Введите пароль" asp-for="Password" aria-describedby="basic-addon1">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMeCheck" asp-for="RememberMe">
+                            <label class="form-check-label" for="rememberMeCheck">Запомнить меня</label>
+                        </div>
+                        <button type="submit" class="btn btn-success">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

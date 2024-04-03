@@ -1,0 +1,92 @@
+﻿@model EditStudentCardViewModel
+
+@{
+    ViewBag.Title = "Создание карточки";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h2>Добавление карточки студента</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" method="post" asp-controller="StudentCard" asp-action="AddStudentCard">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <input type="hidden" asp-for="PersonalDetailsId" value="@Model.PersonalDetailsId" />
+                        <div class="row mx-auto">
+                            <div class="col-12 d-flex justify-content-center align-items-center">
+                                <h3>Карточка студента @Model.Surname @Model.Name @Model.Patronymic</h3>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center align-items-center mb-3">
+                                Личные данные
+                            </div>
+                            <div class="col-12">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Фамилия, имя, отвество</span>
+                                        <input type="text" class="form-control" asp-for="Surname">
+                                        <input type="text" class="form-control" asp-for="Name">
+                                        <input type="text" class="form-control" asp-for="Patronymic">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Факультет</span>
+                                        <input type="text" class="form-control" asp-for="Faculty">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Гражданство</span>
+                                        <input type="text" class="form-control" asp-for="Country">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Пол</span>
+                                        <input type="text" class="form-control" asp-for="Gender">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Дата рождения</span>
+                                        <input type="date" class="form-control" asp-for="Birthday">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">Место рождения</span>
+                                        <input type="text" class="form-control" asp-for="PlaceofBirth">
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <fieldset disabled>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text text-muted">2</span>
+                                        <span class="input-group-text text-muted">Дата рождения</span>
+                                        <input type="date" class="form-control" placeholder="Дата рождения" asp-for="Birthday">
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

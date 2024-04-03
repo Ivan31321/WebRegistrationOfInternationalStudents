@@ -1,0 +1,30 @@
+﻿@model EditEducationLanguageViewModel
+
+@{
+    ViewBag.Title = "Редактировать язык";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h2>Редактирование языка</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-6 ">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" asp-action="EditEducationLanguage" asp-controller="EducationLanguage" method="post">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Язык</label>
+                            <input type="text" class="form-control" placeholder="Введите язык" asp-for="Language">
+                            <div class="form-text">Язык должен быть уникальным!</div>
+                            <span class="form-text text-danger" asp-validation-for="Language"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success">Обновить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

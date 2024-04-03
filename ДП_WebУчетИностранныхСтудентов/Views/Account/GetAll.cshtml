@@ -1,0 +1,53 @@
+﻿@model GetUserListViewModel
+
+@{
+    ViewBag.Title = "Список пользователей";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="border border-3 border-success rounded m-1 bg-list-block">
+        <div class="border border-3 border-success rounded m-2 bg-white">
+            <form class="m-2" method="post">
+                <div class="fs-5 align-content-center align-items-center">Поиск</div>
+                <div class="mx-auto">
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <input class="form-control m-1" asp-for="SearchAccount.SearchString" placeholder="Поиск" />
+                    </div>
+                    <div class="col-12 d-flex justify-content-center justify-content-md-start align-items-center">
+                        <button asp-controller="Account" asp-action="GetAll" type="submit" class="btn btn-success m-1">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h1>Список пользователей:</h1>
+    </div>
+    @foreach (var vm in Model.UserWithRoles)
+    {
+        if (!vm.Roles.Contains("admin"))
+        {
+            <div class="border border-3 border-success rounded-pill m-1 bg-list-block">
+                <div class="border border-3 border-success rounded-pill m-2 bg-white">
+                    <form asp-action="edit" asp-controller="Roles" method="post">
+                        <div class="row mx-auto">
+                            <div class="col-12 col-md-7 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                                ФИО: @vm.User.Surname @vm.User.Name @vm.User.Patronymic
+                            </div>
+                            <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start align-items-center fs-5">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="roles" value="department" @(vm.Roles.Contains("department") ? "checked=\"checked\"" : "")>
+                                <label for="exampleCheck1">Сотрудник</label>
+                            </div>
+                            <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-end align-items-center">
+                                <div class="m-1">
+                                    <input type="submit" class="btn btn-success" asp-controller="Roles" asp-action="Edit" asp-route-id="@vm.User.Id" value="Обновить">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+</div>

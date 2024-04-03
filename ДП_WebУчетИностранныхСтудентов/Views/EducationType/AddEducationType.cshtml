@@ -1,0 +1,30 @@
+﻿@model EditEducationTypeViewModel
+
+@{
+    ViewBag.Title = "Добавить вид обучения";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center justify-content-md-start">
+        <h2>Добавление вида обучения</h2>
+    </div>
+    <div class="row mx-auto d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-6 ">
+            <div class="border border-3 border-success rounded m-1 bg-list-block">
+                <div class="border border-3 border-success rounded m-2 bg-white">
+                    <form class="m-2" asp-action="AddEducationType" asp-controller="EducationType" method="post">
+                        <div class="validation text-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Тип</label>
+                            <input type="text" class="form-control" placeholder="Введите тип" asp-for="Type">
+                            <div class="form-text">Тип должен быть уникальным!</div>
+                            <span class="form-text text-danger" asp-validation-for="Type"></span>
+                        </div>
+                        <button type="submit" class="btn btn-success">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
