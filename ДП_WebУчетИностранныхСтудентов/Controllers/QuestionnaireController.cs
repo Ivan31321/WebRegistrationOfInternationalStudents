@@ -162,6 +162,22 @@ namespace MonitoringTheProgressOfForeignStudents.Controllers
             return File(wordService.ReplaceTemplate(fileName, dict), "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 $"{questFile.Name} {questFile.Surname} {questFile.Patronymic} {DateTime.Now}.docx");
         }
+        [HttpPost]
+        [Route("get-declaration")]
+        public async Task<FileResult> GetDeclaration(EditQuestionnaireViewModel questionnaireViewModel)
+        {
+            string fileName = @"модель.xlsx";
+            var questFile = new QuestionnaireFileViewModel(questionnaireViewModel);
+            questFile.Gender = (await genderRepository.GetById(questionnaireViewModel.GenderId ?? Guid.Empty))?.Name ?? "Пол не определен";
+            questFile.Country = (await countryRepository.GetById(questionnaireViewModel.CountryId ?? Guid.Empty))?.Name ?? "Страна не определена";
+            questFile.MaritalStatus = (await maritalStatusRepository.GetById(questionnaireViewModel.MaritalStatusId ?? Guid.Empty))?.Name ?? "Семейное положение не определено";
+            questFile.Nationality = (await nationalityRepository.GetById(questionnaireViewModel.NationalityId ?? Guid.Empty))?.Name ?? "Национальность не определена";
+            questFile.Specialty = (await specialtyRepository.GetById(questionnaireViewModel.SpecialtyId ?? Guid.Empty))?.Name ?? "Специальность не определена";
+            var dict = questFile.ToFileDict();
+            var str = $"{questFile.Name} {questFile.Surname} {questFile.Patronymic} {DateTime.Now}.xlsx";
+            
+            return File(wordService.ReadDataFromExcel(fileName, "заявление", dict),"application/vnd.openxmlformats-officedocument.wordprocessingml.document",str) ;
+        }
 
         [Route("add/{PersonalDetailsId}")]
         [Route("add")]

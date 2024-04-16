@@ -1,6 +1,8 @@
-﻿using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using MonitoringTheProgressOfForeignStudents.Application.Interfaces.Services;
+using System.Data;
 using System.Text.RegularExpressions;
 
 namespace MonitoringTheProgressOfForeignStudents.Application.Services
@@ -11,7 +13,7 @@ namespace MonitoringTheProgressOfForeignStudents.Application.Services
         {
             using (var mem = new MemoryStream())
             {
-                using (var spreadsheet = SpreadsheetDocument.Create(mem, DocumentFormat.OpenXml.SpreadsheetDocumentType.Workbook))
+                using (var spreadsheet = SpreadsheetDocument.Create(mem, SpreadsheetDocumentType.Workbook))
                 {
                     var wbPart = spreadsheet.AddWorkbookPart();
                     wbPart.Workbook = new Workbook();
@@ -75,6 +77,7 @@ namespace MonitoringTheProgressOfForeignStudents.Application.Services
 
         public byte[] ReplaceTemplate(string templateDist, Dictionary<string, string> parameters)
         {
+
             string docText = null;
 
             byte[] byteArray = File.ReadAllBytes(templateDist);
@@ -105,6 +108,88 @@ namespace MonitoringTheProgressOfForeignStudents.Application.Services
                 stream.Position = 0;
                 return stream.ToArray();
             }
+        }
+        public byte[] ReadDataFromExcel(string sourceFilePath, string sheetName, Dictionary<string, string> parameters)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                // Создание нового Excel файла в памяти
+                using (SpreadsheetDocument destinationDocument = SpreadsheetDocument.Create(memoryStream, SpreadsheetDocumentType.Workbook))
+                {
+                    WorkbookPart destinationWorkbookPart = destinationDocument.AddWorkbookPart();
+                    WorksheetPart destinationWorksheetPart = destinationWorkbookPart.AddNewPart<WorksheetPart>();
+
+                    destinationWorkbookPart.Workbook = new Workbook();
+                    Sheet destinationSheet = new Sheet { Id = destinationDocument.WorkbookPart.GetIdOfPart(destinationWorksheetPart), SheetId = 1, Name = sheetName };
+                    destinationWorkbookPart.Workbook.Append(new Sheets());
+                    destinationWorkbookPart.Workbook.GetFirstChild<Sheets>().Append(destinationSheet);
+
+                    // Копирование данных из исходного листа в новый лист в памяти
+                    using (SpreadsheetDocument sourceDocument = SpreadsheetDocument.Open(sourceFilePath, false))
+                    {
+                        WorkbookPart sourceWorkbookPart = sourceDocument.WorkbookPart;
+                        Sheet sheet = sourceWorkbookPart.Workbook.Descendants<Sheet>().FirstOrDefault(s => s.Name == sheetName);
+
+                        if (sheet == null)
+                        {
+                            Console.WriteLine($"Sheet '{sheetName}' not found.");
+                            return null;
+                        }
+
+                        WorksheetPart sourceWorksheetPart = (WorksheetPart)sourceWorkbookPart.GetPartById(sheet.Id);
+                        destinationWorksheetPart.Worksheet = new Worksheet(sourceWorksheetPart.Worksheet.OuterXml);
+                    }
+
+                    destinationWorkbookPart.Workbook.Save();
+                }
+
+                memoryStream.Position = 0; // Сброс позиции памяти
+
+                // Модификация данных в Excel в памяти 
+                byte[] modifiedData = ModifyCellsInExcel(memoryStream, sheetName, parameters);
+
+                return modifiedData;
+            }
+        }
+
+        public byte[] ModifyCellsInExcel(MemoryStream memoryStream, string sheetName, Dictionary<string, string> cellChanges)
+        {
+            byte[] resultData;
+
+            using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Open(memoryStream, true))
+            {
+                WorkbookPart workbookPart = spreadsheetDocument.WorkbookPart;
+                Sheet sheet = workbookPart.Workbook.Descendants<Sheet>().FirstOrDefault(s => s.Name == sheetName);
+
+                if (sheet == null)
+                {
+                    Console.WriteLine($"Sheet '{sheetName}' not found.");
+                    return null;
+                }
+
+                WorksheetPart worksheetPart = (WorksheetPart)workbookPart.GetPartById(sheet.Id);
+                SheetData sheetData = worksheetPart.Worksheet.Elements<SheetData>().FirstOrDefault();
+
+                foreach (Row row in sheetData.Elements<Row>())
+                {
+                    foreach (Cell cell in row.Elements<Cell>())
+                    {
+                        string cellReference = cell.CellReference.InnerText;
+                        if (cellChanges.ContainsKey(cellReference))
+                        {
+                            cell.CellValue = new CellValue(cellChanges[cellReference]);
+                            cell.DataType = new EnumValue<CellValues>(CellValues.String);
+                        }
+                    }
+                }
+
+                worksheetPart.Worksheet.Save();
+                workbookPart.Workbook.Save();
+
+                resultData = memoryStream.ToArray(); // Получение обновленных данных из MemoryStream
+            }
+
+            return resultData;
         }
     }
 }
